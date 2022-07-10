@@ -49,7 +49,7 @@ const Table = () => {
         className="gotoLink m-2 btn btn-info"
         onClick={() => navigate("/registration")}
       >
-        <i class="fa-solid fa-arrow-left"></i> Go to registration Page
+        <i className="fa-solid fa-arrow-left"></i> Go to registration Page
       </span>
       <table className="table table-hover table-dark">
         <thead>
@@ -68,47 +68,53 @@ const Table = () => {
                   <td>{userObject.name}</td>
                   <td>{userObject.email}</td>
                   <td>{userObject.mobile}</td>
-                  <td>
-                    <button
-                      style={{
-                        pointerEvents: userObject.isActivate ? "auto" : " none",
-                      }}
-                      onClick={() => handleEdit(userObject.id)}
-                      className="m-2 btn btn-secondary"
-                    >
-                      Edit
-                    </button>
-                    <button
-                      style={{
-                        pointerEvents: userObject.isActivate ? "auto" : " none",
-                      }}
-                      onClick={() => handleDelete(userObject.id)}
-                      className="m-2 btn btn-danger"
-                    >
-                      Delete
-                    </button>
-                    <button
-                      onClick={() => activateToggle(userObject.id)}
-                      style={{
-                        pointerEvents: "auto",
-                      }}
-                      className="m-2 btn btn-warning"
-                    >
-                      {userObject.isActivate ? "DeActivate" : "Activate"}
-                    </button>
+                  {
+                    <td>
+                      <button
+                        style={{
+                          pointerEvents: userObject.isActivate
+                            ? "auto"
+                            : " none",
+                        }}
+                        onClick={() => handleEdit(userObject.id)}
+                        className="m-2 btn btn-secondary"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        style={{
+                          pointerEvents: userObject.isActivate
+                            ? "auto"
+                            : " none",
+                        }}
+                        onClick={() => handleDelete(userObject.id)}
+                        className="m-2 btn btn-danger"
+                      >
+                        Delete
+                      </button>
+                      <button
+                        onClick={() => activateToggle(userObject.id)}
+                        style={{
+                          pointerEvents: "auto",
+                        }}
+                        className="m-2 btn btn-warning"
+                      >
+                        {userObject.isActivate ? "DeActivate" : "Activate"}
+                      </button>
 
-                    <button
-                      disabled
-                      className="m-2 btn btn-warning"
-                      style={{
-                        visibility: userObject.isActivate
-                          ? "visible"
-                          : "hidden",
-                      }}
-                    >
-                      <i class="fa-solid fa-check-double text-white"></i>
-                    </button>
-                  </td>
+                      <button
+                        disabled
+                        className="m-2 btn btn-warning"
+                        style={{
+                          visibility: userObject.isActivate
+                            ? "visible"
+                            : "hidden",
+                        }}
+                      >
+                        <i className="fa-solid fa-check-double text-white"></i>
+                      </button>
+                    </td>
+                  }
                 </tr>
               );
             })}

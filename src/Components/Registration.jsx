@@ -47,15 +47,31 @@ const Registration = () => {
         alert("User Already Exists with same email");
       }
     }
+    emptyUserObject();
+  };
+
+  const gotoUsersPage = () => {
+    /*global event, fdescribe*/
+    /*eslint no-restricted-globals: ["error", "event", "fdescribe"]*/
+    if (Object.values(userDetails).length) {
+      const msg =
+        "Changes has not been registered\n You still want to proceed?";
+      if (confirm(msg) === true) {
+        emptyUserObject();
+        navigate("/show");
+      }
+    } else {
+      emptyUserObject();
+      navigate("/show");
+    }
+  };
+
+  const emptyUserObject = () => {
     setUserDetails({
       name: "",
       email: "",
       mobile: "",
     });
-  };
-
-  const gotoUsersPage = () => {
-    navigate("/show");
   };
   return (
     <>
@@ -105,9 +121,16 @@ const Registration = () => {
               />
             </div>
             <div className="form-group mt-3">
-              <button className="m-2 btn btn-primary">Submit</button>
-              <button onClick={gotoUsersPage} className="m-2 btn btn-info">
-                All users Data
+              <button className="m-2 btn btn-primary" type="submit">
+                Submit
+              </button>
+              <button
+                onClick={gotoUsersPage}
+                type="button"
+                className="m-2 btn btn-info"
+              >
+                View all users data{" "}
+                <i className="fa-solid fa-square-arrow-right"></i>
               </button>
             </div>
           </form>
