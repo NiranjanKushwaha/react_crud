@@ -53,7 +53,7 @@ const Registration = () => {
   const gotoUsersPage = () => {
     /*global event, fdescribe*/
     /*eslint no-restricted-globals: ["error", "event", "fdescribe"]*/
-    if (Object.values(userDetails).length) {
+    if (Object.values(userDetails).some((el) => el !== "")) {
       const msg =
         "Changes has not been registered\n You still want to proceed?";
       if (confirm(msg) === true) {
