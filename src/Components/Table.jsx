@@ -25,13 +25,15 @@ const Table = () => {
   };
   const activateToggle = (receivedId) => {
     if (receivedId >= 0) {
-      localData.map((userObject) => {
+      let newResult = localData.map((userObject) => {
         if (userObject.id === receivedId) {
           userObject.isActivate = !userObject.isActivate;
+          return userObject;
         }
+        return userObject;
       });
-      setLocalStorage("usersData", localData);
-      setLocalData(localData);
+      setLocalStorage("usersData", newResult);
+      setLocalData(newResult);
     }
   };
 
