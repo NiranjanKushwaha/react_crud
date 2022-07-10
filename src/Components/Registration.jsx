@@ -16,6 +16,7 @@ const Registration = () => {
   useEffect(() => {
     setLocalData(getLocalStorage("usersData"));
   }, []);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserDetails((prev) => {
@@ -33,12 +34,14 @@ const Registration = () => {
     );
     if (localData.length && !isUserAlreadyExists) {
       const oldDataWithNewData = [...localData, userDetails];
+      setLocalData(oldDataWithNewData);
       setLocalStorage("usersData", oldDataWithNewData);
       alert("registration done successfully");
     } else {
       if (!localData.length) {
         const oldDataWithNewData = [...localData, userDetails];
         setLocalStorage("usersData", oldDataWithNewData);
+        setLocalData(oldDataWithNewData);
         alert("registration done successfully");
       } else {
         alert("User Already Exists with same email");

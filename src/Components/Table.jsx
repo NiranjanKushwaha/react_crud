@@ -31,6 +31,7 @@ const Table = () => {
         }
       });
       setLocalStorage("usersData", localData);
+      setLocalData(localData);
     }
   };
 
@@ -61,24 +62,24 @@ const Table = () => {
           {localData.length &&
             localData.map((userObject) => {
               return (
-                <tr
-                  key={userObject.id}
-                  style={{
-                    pointerEvents: !userObject.isActivate ? "auto" : " none",
-                    // background: userObject.isActivate ? "red" : "#fff",
-                  }}
-                >
+                <tr key={userObject.id}>
                   <td>{userObject.name}</td>
                   <td>{userObject.email}</td>
                   <td>{userObject.mobile}</td>
                   <td>
                     <button
+                      style={{
+                        pointerEvents: userObject.isActivate ? "auto" : " none",
+                      }}
                       onClick={() => handleEdit(userObject.id)}
                       className="m-2 btn btn-secondary"
                     >
                       Edit
                     </button>
                     <button
+                      style={{
+                        pointerEvents: userObject.isActivate ? "auto" : " none",
+                      }}
                       onClick={() => handleDelete(userObject.id)}
                       className="m-2 btn btn-danger"
                     >
@@ -91,13 +92,20 @@ const Table = () => {
                       }}
                       className="m-2 btn btn-warning"
                     >
-                      DeActivate
+                      {userObject.isActivate ? "DeActivate" : "Activate"}
                     </button>
-                    {userObject.isActivate && (
-                      <span>
-                        <i class="bi bi-check2-all"></i>
-                      </span>
-                    )}
+
+                    <button
+                      disabled
+                      className="m-2 btn btn-warning"
+                      style={{
+                        visibility: userObject.isActivate
+                          ? "visible"
+                          : "hidden",
+                      }}
+                    >
+                      <i class="fa-solid fa-check-double text-white"></i>
+                    </button>
                   </td>
                 </tr>
               );
