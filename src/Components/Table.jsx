@@ -16,11 +16,10 @@ const Table = () => {
       const filteredData = localData.filter(
         (userObject) => userObject.id !== receivedId
       );
-      if (filteredData && filteredData.length) {
-        setLocalStorage("usersData", filteredData);
-        setLocalData(filteredData);
-        alert("user Data deleted successfully");
-      }
+
+      setLocalStorage("usersData", filteredData);
+      setLocalData(filteredData);
+      alert("user Data deleted successfully");
     }
   };
   const activateToggle = (receivedId) => {
@@ -39,7 +38,7 @@ const Table = () => {
 
   const handleEdit = (receivedId) => {
     if (receivedId >= 0) {
-      console.log("clicked on edit button");
+      navigate(`/edit/${receivedId}`);
     }
   };
 

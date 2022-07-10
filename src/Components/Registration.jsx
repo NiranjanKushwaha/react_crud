@@ -3,8 +3,9 @@ import { getLocalStorage, setLocalStorage } from "./Common.service";
 import { useNavigate } from "react-router-dom";
 import "./registration.css";
 
-const Registration = () => {
+const Registration = ({ editData }) => {
   const [localData, setLocalData] = useState([]);
+  const [isEditEnabled, setIsEditEnabled] = useState(false);
   const [userDetails, setUserDetails] = useState({
     name: "",
     email: "",
@@ -14,8 +15,12 @@ const Registration = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (editData && Object.values(editData).some((el) => el !== "")) {
+      setUserDetails(editData);
+      setIsEditEnabled(true);
+    }
     setLocalData(getLocalStorage("usersData"));
-  }, []);
+  }, [editData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -53,7 +58,7 @@ const Registration = () => {
   const gotoUsersPage = () => {
     /*global event, fdescribe*/
     /*eslint no-restricted-globals: ["error", "event", "fdescribe"]*/
-    if (Object.values(userDetails).some((el) => el !== "")) {
+    if (userDetails && Object.values(userDetails).some((el) => el !== "")) {
       const msg =
         "Changes has not been registered\n You still want to proceed?";
       if (confirm(msg) === true) {
@@ -63,6 +68,20 @@ const Registration = () => {
     } else {
       emptyUserObject();
       navigate("/show");
+    }
+  };
+
+  const saveEditedDetails = (userId) => {
+    if (localData && localData.length) {
+      const matchingIndex = localData.findIndex((el) => el.id === userId);
+      if (matchingIndex > -1) {
+        localData.splice(matchingIndex, 1, userDetails);
+        setLocalStorage("usersData", localData);
+        alert("userDetails updated successfully");
+        navigate("/show");
+      } else {
+        alert("Can't update, Something went wrong");
+      }
     }
   };
 
@@ -111,9 +130,13 @@ const Registration = () => {
               <label htmlFor="mob">Mobile</label>
               <br />
               <input
-                type="number"
                 id="mob"
                 name="mobile"
+                onKeyPress={(event) => {
+                  if (!/[0-9]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+                }}
                 placeholder="Please Enter Your Mobile Number"
                 value={userDetails.mobile}
                 onChange={handleChange}
@@ -126,11 +149,22 @@ const Registration = () => {
                 type="button"
                 onClick={emptyUserObject}
               >
-                <i class="fa-solid fa-eraser"></i>
+                <i className="fa-solid fa-eraser"></i>
               </button>
-              <button className="m-2 btn btn-primary" type="submit">
-                Submit
-              </button>
+              {!isEditEnabled && (
+                <button className="m-2 btn btn-primary" type="submit">
+                  Submit
+                </button>
+              )}
+              {isEditEnabled && (
+                <button
+                  className="m-2 btn btn-primary"
+                  type="button"
+                  onClick={() => saveEditedDetails(userDetails.id)}
+                >
+                  Edit
+                </button>
+              )}
               <button
                 onClick={gotoUsersPage}
                 type="button"

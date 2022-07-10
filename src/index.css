@@ -22,3 +22,7 @@ code {
 .gotoLink{
   cursor: pointer;
 }
+
+.pageNotFound{
+  background-image: url('../public/assets/images/pageNotFound.jpeg');
+}
