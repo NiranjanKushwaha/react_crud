@@ -121,6 +121,13 @@ const Registration = () => {
               />
             </div>
             <div className="form-group mt-3">
+              <button
+                className="m-2 btn btn-info"
+                type="button"
+                onClick={emptyUserObject}
+              >
+                <i class="fa-solid fa-eraser"></i>
+              </button>
               <button className="m-2 btn btn-primary" type="submit">
                 Submit
               </button>
