@@ -24,5 +24,5 @@ code {
 }
 
 .pageNotFound{
-  background-image: url('../public/assets/images/pageNotFound.jpeg');
+  background-image: url('../src/images/pageNotFound.jpeg');
 }
